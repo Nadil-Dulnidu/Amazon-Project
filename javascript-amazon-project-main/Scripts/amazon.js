@@ -72,11 +72,6 @@ function updateCartQuantity(){
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity;
 
-  /* if (cartQuantity === 0){
-    document.querySelector('.js-cart-quantity')
-  .innerHTML = '';
-  } */
-
 };
 
 document.querySelectorAll('.js-add-to-cart')
