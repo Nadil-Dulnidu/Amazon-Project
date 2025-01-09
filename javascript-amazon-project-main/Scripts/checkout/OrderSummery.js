@@ -12,17 +12,13 @@ export function renderOrderSummery(){
   cart.forEach(item =>{
 
     const productId = item.productId;
-
     const matchingProduct = getProduct(productId);
 
     const delivaryOptionId = item.delivaryOptionId;
-
     const delivaryOption = getDelivaryOptions(delivaryOptionId);
 
     const today = dayjs();
-
     const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
-
     const dateString = delivaryDate.format('dddd, MMMM, D');
 
     const cartSummery = `
@@ -79,9 +75,7 @@ export function renderOrderSummery(){
     delivaryOptions.forEach(delivaryOption => {
 
       const today = dayjs();
-
       const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
-
       const dateString = delivaryDate.format('dddd, MMMM, D');
 
       const priceString = delivaryOption.priceCents === 0
