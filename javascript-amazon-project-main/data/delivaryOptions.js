@@ -30,10 +30,24 @@ export function getDelivaryOptions(delivaryOptionId){
     return delivaryOption || delivaryOptions[0];
 };
 
+function isWeekend(date) {
+  
+  const dayOfWeek = date.format('dddd');
+  return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
+};
+
 export function calculateDelivaryDate(delivaryOption){
 
-  const today = dayjs();
-  const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
+  let remainingDays = delivaryOption.delivaryDays;
+  let delivaryDate = dayjs();
+
+  while (remainingDays > 0) {
+    delivaryDate = delivaryDate.add(1, 'day');
+
+    if (!isWeekend(delivaryDate)) {
+      remainingDays--;
+    }
+  }
   const dateString = delivaryDate.format('dddd, MMMM, D');
   
   return dateString;
