@@ -60,4 +60,5 @@ export function renderPaymentSummery(){
 
   document.querySelector('.js-payment-summary')
   .innerHTML = PaymentSummeryHTML;
+  
 };
