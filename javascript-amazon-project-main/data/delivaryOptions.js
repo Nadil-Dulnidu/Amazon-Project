@@ -24,7 +24,6 @@ export function getDelivaryOptions(delivaryOptionId){
 
         delivaryOption = option;
       }
-
     });
 
     return delivaryOption || delivaryOptions[0];
