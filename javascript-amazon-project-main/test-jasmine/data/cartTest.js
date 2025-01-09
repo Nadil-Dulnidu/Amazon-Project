@@ -6,6 +6,22 @@ describe('test suite: addToCart', () =>{
 
     spyOn(localStorage, 'setItem');
 
+    document.querySelector('.js-test-container').innerHTML = `
+      
+    <select class="js-quantity-selector-${'e43638ce-6aa0-4b85-b27f-e1d07eb678c6'}">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+    `
+
     spyOn(localStorage, 'getItem').and.callFake(() => {
 
       return JSON.stringify([{
@@ -22,12 +38,30 @@ describe('test suite: addToCart', () =>{
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
     expect(cart[0].quantity).toEqual(2);
+
+    document.querySelector('.js-test-container').innerHTML = '';
     
   });
   
   it('adds a new product to the cart', () => {
 
     spyOn(localStorage, 'setItem');
+
+    document.querySelector('.js-test-container').innerHTML = `
+      
+    <select class="js-quantity-selector-${'e43638ce-6aa0-4b85-b27f-e1d07eb678c6'}">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+    `
 
     spyOn(localStorage, 'getItem').and.callFake(() => {
 
@@ -41,6 +75,8 @@ describe('test suite: addToCart', () =>{
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
     expect(cart[0].quantity).toEqual(1);
+
+    document.querySelector('.js-test-container').innerHTML = '';
 
   });
 
