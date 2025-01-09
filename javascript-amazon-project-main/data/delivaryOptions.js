@@ -1,3 +1,5 @@
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
 export const delivaryOptions = [{
   id: '1',
   delivaryDays: 7,
@@ -26,4 +28,13 @@ export function getDelivaryOptions(delivaryOptionId){
     });
 
     return delivaryOption || delivaryOptions[0];
-}
+};
+
+export function calculateDelivaryDate(delivaryOption){
+
+  const today = dayjs();
+  const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
+  const dateString = delivaryDate.format('dddd, MMMM, D');
+  
+  return dateString;
+};

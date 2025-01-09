@@ -1,9 +1,9 @@
 import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDelivaryOptions } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../../utils/money.js";
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { delivaryOptions , getDelivaryOptions } from "../../data/delivaryOptions.js";
+import { delivaryOptions , getDelivaryOptions, calculateDelivaryDate } from "../../data/delivaryOptions.js";
 import { renderPaymentSummery } from "./PaymentSummery.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export function renderOrderSummery(){
 
@@ -17,9 +17,7 @@ export function renderOrderSummery(){
     const delivaryOptionId = item.delivaryOptionId;
     const delivaryOption = getDelivaryOptions(delivaryOptionId);
 
-    const today = dayjs();
-    const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
-    const dateString = delivaryDate.format('dddd, MMMM, D');
+    const dateString = calculateDelivaryDate(delivaryOption);
 
     const cartSummery = `
       
@@ -74,10 +72,8 @@ export function renderOrderSummery(){
 
     delivaryOptions.forEach(delivaryOption => {
 
-      const today = dayjs();
-      const delivaryDate = today.add(delivaryOption.delivaryDays, 'days');
-      const dateString = delivaryDate.format('dddd, MMMM, D');
-
+      const dateString = calculateDelivaryDate(delivaryOption);
+      
       const priceString = delivaryOption.priceCents === 0
       ? 'FREE'
       : `$${formatCurrency(delivaryOption.priceCents)} -`;
@@ -106,16 +102,7 @@ export function renderOrderSummery(){
 
   };
 
-  function updateCartQuantity(){
-
-    const cartQuantity = calculateCartQuantity();
-
-    document.querySelector('.js-checkout-items')
-    .innerHTML = `${cartQuantity} items`;
-
-  };
-
-  updateCartQuantity();
+  renderCheckoutHeader();
 
   document.querySelector('.js-order-summery')
   .innerHTML = cartSummeryHTML;
@@ -132,7 +119,7 @@ export function renderOrderSummery(){
 
       container.remove();
 
-      updateCartQuantity();
+      renderCheckoutHeader();
 
       renderPaymentSummery();
     
@@ -183,7 +170,7 @@ export function renderOrderSummery(){
 
       quantityLabel.innerHTML = newQuentity;
 
-      updateCartQuantity();
+      renderCheckoutHeader();
 
       renderPaymentSummery();
     
