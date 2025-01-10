@@ -43,7 +43,32 @@ class Product {
     return `$${formatCurrency(this.priceCents)}`;
 
   };
+
+  extraInfoHTML(){
+
+    return '';
+  };
+  
 };
+
+class Clothing extends Product {
+
+  sizeChartLink;
+
+  constructor(productDeatils){
+
+    super(productDeatils);
+    this.sizeChartLink = productDeatils.sizeChartLink;
+
+  };
+
+  extraInfoHTML(){
+
+    /* super.extraInfoHTML(); */
+    return `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
+  };
+
+}; 
 
 export const products = [
   {
@@ -705,7 +730,11 @@ export const products = [
     ]
   }
 ].map((productDeatils)=>{
-
+  
+  if (productDeatils.type === 'clothing'){
+    
+    return new Clothing(productDeatils);
+  }
+  
   return new Product(productDeatils);
-
 });
