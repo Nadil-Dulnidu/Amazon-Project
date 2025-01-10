@@ -82,9 +82,9 @@ export function renderOrderSummery(){
       const isChecked = delivaryOption.id === item.delivaryOptionId;
 
       const text = `
-              <div class="delivery-option js-delivary-options" data-product-id="${matchingProduct.id}" data-delivary-option-id="${delivaryOption.id}">
+              <div class="delivery-option js-delivary-options js-delivary-options-${matchingProduct.id}-${delivaryOption.id}" data-product-id="${matchingProduct.id}" data-delivary-option-id="${delivaryOption.id}">
                 <input type="radio" ${isChecked ?'checked' :''}
-                  class="delivery-option-input"
+                  class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${delivaryOption.id}"
                   name="delivery-option-${matchingProduct.id}">
                 <div>
                   <div class="delivery-option-date">

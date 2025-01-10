@@ -29,6 +29,22 @@ export function getDelivaryOptions(delivaryOptionId){
     return delivaryOption || delivaryOptions[0];
 };
 
+export function validDelivaryOptions(delivaryOptionId){
+
+  let found = false;
+
+  delivaryOptions.forEach(option => {
+
+    if (option.id === delivaryOptionId){
+
+      found = true;
+    }
+  });
+
+  return found;
+
+};
+
 function isWeekend(date) {
   
   const dayOfWeek = date.format('dddd');

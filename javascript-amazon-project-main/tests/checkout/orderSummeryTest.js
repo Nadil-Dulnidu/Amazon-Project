@@ -45,7 +45,6 @@ describe('test suite: renderOrderSummery', () => {
   it('displays the cart', () => {
     
     expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
-
     expect(document.querySelector(`.js-product-quantity-${product1}`).innerText).toContain('Quantity: 2');
     expect(document.querySelector(`.js-product-quantity-${product2}`).innerText).toContain('Quantity: 1');
     expect(document.querySelector(`.js-product-name-${product1}`).innerText).toEqual('Black and Gray Athletic Cotton Socks - 6 Pairs');
@@ -66,5 +65,17 @@ describe('test suite: renderOrderSummery', () => {
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(product2);
 
+  });
+
+  it('update deleivary option', () => {
+
+    document.querySelector(`.js-delivary-options-${product1}-${3}`).click();
+
+    expect(document.querySelector(`.js-delivery-option-input-${product1}-${3}`).checked).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(product1);
+    expect(cart[0].delivaryOptionId).toEqual('3');
+    expect(document.querySelector('.js-shipping-price').innerText).toEqual('$14.98');
+    expect(document.querySelector('.js-total-payment').innerText).toEqual('$63.50');
   });
 });

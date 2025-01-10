@@ -1,3 +1,5 @@
+import { validDelivaryOptions } from "./delivaryOptions.js";
+
 export let cart;
 
 loadFromStorage();
@@ -98,6 +100,16 @@ export function updateDelivaryOptions(productId, delivaryOptionId){
       matchingItem = item;
     }
   });
+
+  if (!matchingItem){
+
+    return;
+  }
+
+  if (!validDelivaryOptions(delivaryOptionId)){
+
+    return;
+  }
 
   matchingItem.delivaryOptionId = delivaryOptionId;
 
