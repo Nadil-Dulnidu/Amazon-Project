@@ -11,7 +11,6 @@ describe('test suite: renderOrderSummery', () => {
     loadProducts(() =>{
       done();
     });
-    
   });
 
   beforeEach(() => {
