@@ -7,7 +7,13 @@ import { loadProducts, loadProductFetch } from "../data/products.js";
 
 async function loadPage(){
 
-  await loadProductFetch();
+  try {
+    await loadProductFetch();
+  } catch (error) {
+    console.log('Unexpected  error. Please try agian later');
+  }
+
+  
 
   /* await new Promise((resolve) =>{
     loadcart(()=>{

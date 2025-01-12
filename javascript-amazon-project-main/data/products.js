@@ -118,6 +118,8 @@ export function loadProductFetch(){
 
     console.log('load products');
 
+  }).catch(()=>{
+    console.log('Unexpected  error. Please try agian later');
   });
 
   return promise;
@@ -148,7 +150,12 @@ export function loadProducts(fun){
 
     fun();
   });
-  
+
+  xhr.addEventListener('error', ()=>{
+
+    console.log('Unexpected  error. Please try agian later');
+  });
+
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 };
