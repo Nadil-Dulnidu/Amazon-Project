@@ -5,6 +5,22 @@ import { loadProducts, loadProductFetch } from "../data/products.js";
 /* import '../data/car.js'; */
 /* import '../data/backend-practice.js'; */
 
+async function loadPage(){
+
+  await loadProductFetch();
+
+  /* await new Promise((resolve) =>{
+    loadcart(()=>{
+      resolve();
+    });
+  }); */
+
+  renderOrderSummery();
+  renderPaymentSummery();
+};
+
+loadPage();
+
 /* new Promise((resolve)=>{
   loadProducts(()=>{
     resolve();
@@ -14,11 +30,11 @@ import { loadProducts, loadProductFetch } from "../data/products.js";
   renderPaymentSummery();
 }); */
 
-loadProductFetch().then(()=>{
+/* loadProductFetch().then(()=>{
   renderOrderSummery();
   renderPaymentSummery();
 });
-
+ */
 /* new Promise((resolve)=>{
   loadProducts(()=>{
     resolve();
