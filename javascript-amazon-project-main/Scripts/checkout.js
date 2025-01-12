@@ -12,9 +12,6 @@ async function loadPage(){
   } catch (error) {
     console.log('Unexpected  error. Please try agian later');
   }
-
-  
-
   /* await new Promise((resolve) =>{
     loadcart(()=>{
       resolve();
