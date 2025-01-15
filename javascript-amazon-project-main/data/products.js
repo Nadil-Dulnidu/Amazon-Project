@@ -4,9 +4,7 @@ export function getProduct(productId){
   let matchingProduct;
 
     products.forEach(product => {
-
       if (product.id === productId){
-
         matchingProduct = product;
       }
     });
@@ -14,16 +12,13 @@ export function getProduct(productId){
 };
 
 export class Product {
-
   id;
   image;
   name;
   rating;
   priceCents;
   keywords;
-
   constructor(productDeatils){
-
     this.id = productDeatils.id;
     this.image = productDeatils.image;
     this.name = productDeatils.name;
@@ -33,104 +28,72 @@ export class Product {
   };
 
   getStarsUrl(){
-
     return `images/ratings/rating-${this.rating.stars * 10}.png`;
-
   };
 
   getPrice(){
-
     return `$${formatCurrency(this.priceCents)}`;
-
   };
 
   extraInfoHTML(){
-
     return '';
   };
   
 };
 
 export class Clothing extends Product {
-
   sizeChartLink;
-
   constructor(productDeatils){
-
     super(productDeatils);
     this.sizeChartLink = productDeatils.sizeChartLink;
-
   };
-
   extraInfoHTML(){
-
     /* super.extraInfoHTML(); */
     return `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
   };
-
 };
 
 export class Appliance extends Product {
-
   instructionsLink;
   warrantyLink;
-
   constructor(productDeatils){
-
     super(productDeatils);
     this.instructionsLink = productDeatils.instructionsLink;
     this.warrantyLink = productDeatils.warrantyLink;
   }
 
   extraInfoHTML(){
-
     /* super.extraInfoHTML(); */
     return `<a href="${this.instructionsLink}" target="_blank">Instructions</a>
             <a href="${this.warrantyLink}" target="_blank">Warranty</a>`;
   };
-
 };
 
 export let products = [];
 
 export function loadProductFetch(){
-
   const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
-
     return response.json();
-
   }).then((productsData)=>{
-
     products = productsData.map((productDeatils)=>{
-  
       if (productDeatils.type === 'clothing'){
-        
         return new Clothing(productDeatils);
-      }
-    
-      if (productDeatils.type === 'appliance'){
-    
+      }   
+      if (productDeatils.type === 'appliance'){ 
         return new Appliance(productDeatils);
-      }
-      
+      }      
       return new Product(productDeatils);
     });
-
   }).catch(()=>{
     console.log('Unexpected  error. Please try agian later');
   });
-
   return promise;
 };
 
 export function loadProducts(fun){
-
   const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', ()=>{
-    
+  xhr.addEventListener('load', ()=>{  
     products = JSON.parse(xhr.response).map((productDeatils)=>{
-  
       if (productDeatils.type === 'clothing'){
         
         return new Clothing(productDeatils);

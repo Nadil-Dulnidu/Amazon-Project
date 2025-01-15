@@ -10,26 +10,19 @@ export function renderOrderSummery(){
   let cartSummeryHTML = '';
 
   cart.forEach(item =>{
-
     const productId = item.productId;
     const matchingProduct = getProduct(productId);
-
     const delivaryOptionId = item.delivaryOptionId;
     const delivaryOption = getDelivaryOptions(delivaryOptionId);
-
     const dateString = calculateDelivaryDate(delivaryOption);
-
     const cartSummery = `
-      
       <div class="cart-item-container js-cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
           Delivery date: ${dateString}
         </div>
-
         <div class="cart-item-details-grid">
           <img class="product-image"
             src="${matchingProduct.image}">
-
           <div class="cart-item-details">
             <div class="product-name js-product-name-${matchingProduct.id}">
               ${matchingProduct.name}
@@ -53,7 +46,6 @@ export function renderOrderSummery(){
               </span>
             </div>
           </div>
-
           <div class="delivery-options">
             <div class="delivery-options-title">
               Choose a delivery option:
@@ -63,24 +55,17 @@ export function renderOrderSummery(){
         </div>
       </div>
     `;
-
     cartSummeryHTML += cartSummery;
   });
 
   function delivaryOptionHTML(matchingProduct , item){
-
     let html = '';
-
     delivaryOptions.forEach(delivaryOption => {
-
       const dateString = calculateDelivaryDate(delivaryOption);
-      
       const priceString = delivaryOption.priceCents === 0
       ? 'FREE'
       : `$${formatCurrency(delivaryOption.priceCents)} -`;
-
       const isChecked = delivaryOption.id === item.delivaryOptionId;
-
       const text = `
               <div class="delivery-option js-delivary-options js-delivary-options-${matchingProduct.id}-${delivaryOption.id}" data-product-id="${matchingProduct.id}" data-delivary-option-id="${delivaryOption.id}">
                 <input type="radio" ${isChecked ?'checked' :''}
@@ -98,9 +83,7 @@ export function renderOrderSummery(){
               `;
       html += text;        
     });
-
     return html;
-
   };
 
   renderCheckoutHeader();
@@ -110,89 +93,53 @@ export function renderOrderSummery(){
 
   document.querySelectorAll('.js-delete-link')
   .forEach(link => {
-    
     link.addEventListener('click', () => {
-
       const productId = link.dataset.productId;
       removeFromCart(productId);
-
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
-
       container.remove();
-
       renderCheckoutHeader();
-
       renderPaymentSummery();
-    
     });
   });
 
   document.querySelectorAll('.js-update-link')
   .forEach(link => {
-    
     link.addEventListener('click', ()=>{
-
       const productId = link.dataset.productId;
-      
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
-
       container.classList.add('is-editing-quantity');
-      
     });
   });
 
   const saveElement = document.querySelectorAll('.js-save-link');
-
   saveElement.forEach(link => {
-
     link.addEventListener('click', ()=>{
-
       const productId = link.dataset.productId;
-
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
-
       container.classList.remove('is-editing-quantity');
-
       const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
-
       const inputValue = Number(inputElement.value);
-
       const newQuentity = inputValue;
-
       if (newQuentity < 0 || newQuentity > 100){
-
         alert('Quantity must be at least 0 and less than 1000');
         return;
       }
-
       updateQuantity(productId, newQuentity);
-
       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
-
       quantityLabel.innerHTML = newQuentity;
-
       renderCheckoutHeader();
-
       renderPaymentSummery();
-    
     });
-
   });
 
   document.querySelectorAll('.js-delivary-options')
   .forEach( element =>{
-    
     element.addEventListener('click', () => {
-
       const {productId, delivaryOptionId} = element.dataset;
-
       updateDelivaryOptions(productId, delivaryOptionId);
-      
       renderOrderSummery();
-
       renderPaymentSummery();
-    
     });
   });
-
 };
